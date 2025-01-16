@@ -1,3 +1,105 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     RegisterRequest:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         email:
+ *           type: string
+ *           format: email
+ *           description: User's email
+ *         password:
+ *           type: string
+ *           format: password
+ *           description: User's password (minimum 6 characters)
+ *       example:
+ *         email: user@example.com
+ *         password: securepassword
+ *     LoginRequest:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         email:
+ *           type: string
+ *           format: email
+ *           description: User's email
+ *         password:
+ *           type: string
+ *           format: password
+ *           description: User's password
+ *       example:
+ *         email: user@example.com
+ *         password: securepassword
+ *     LoginResponse:
+ *       type: object
+ *       properties:
+ *         token:
+ *           type: string
+ *           description: JWT token
+ *       example:
+ *         token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYWIyZGVlYjEyZDZiMjg2YzZmZWU1ZSIsImlhdCI6MTYzODgwNjQzMywiZXhwIjoxNjM4ODA3MjMzfQ.abc123XYZ
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   name: Authentication
+ *   description: User authentication and registration
+ */
+
+/**
+ * @swagger
+ * /api/auth/register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/RegisterRequest'
+ *     responses:
+ *       201:
+ *         description: User registered successfully
+ *       400:
+ *         description: Validation error or email already exists
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Login a user
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LoginRequest'
+ *     responses:
+ *       200:
+ *         description: User logged in successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LoginResponse'
+ *       400:
+ *         description: Validation error or invalid credentials
+ *       500:
+ *         description: Server error
+ */
+
+
 const db = require("../models");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");

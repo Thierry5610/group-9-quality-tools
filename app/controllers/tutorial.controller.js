@@ -1,3 +1,199 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Tutorial:
+ *       type: object
+ *       required:
+ *         - title
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: Auto-generated ID
+ *         title:
+ *           type: string
+ *           description: The tutorial title
+ *         description:
+ *           type: string
+ *           description: The tutorial description
+ *         published:
+ *           type: boolean
+ *           description: Published status
+ *       example:
+ *         id: 61a8f1d50a8b5a001c7d9d29
+ *         title: Learn Node.js
+ *         description: A complete guide to Node.js
+ *         published: true
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   name: Tutorials
+ *   description: The tutorial managing API
+ */
+
+/**
+ * @swagger
+ * /api/tutorials:
+ *   post:
+ *     summary: Create a new tutorial
+ *     tags: [Tutorials]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Tutorial'
+ *     responses:
+ *       200:
+ *         description: The tutorial was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Tutorial'
+ *       400:
+ *         description: The request body is missing required fields
+ *       500:
+ *         description: Some server error
+ */
+
+/**
+ * @swagger
+ * /api/tutorials:
+ *   get:
+ *     summary: Retrieve all tutorials
+ *     tags: [Tutorials]
+ *     parameters:
+ *       - in: query
+ *         name: title
+ *         schema:
+ *           type: string
+ *         description: Filter tutorials by title
+ *     responses:
+ *       200:
+ *         description: A list of tutorials
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Tutorial'
+ *       500:
+ *         description: Some server error
+ */
+
+/**
+ * @swagger
+ * /api/tutorials/{id}:
+ *   get:
+ *     summary: Get a tutorial by ID
+ *     tags: [Tutorials]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The tutorial ID
+ *     responses:
+ *       200:
+ *         description: The tutorial description by ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Tutorial'
+ *       404:
+ *         description: Tutorial not found
+ *       500:
+ *         description: Some server error
+ */
+
+/**
+ * @swagger
+ * /api/tutorials/{id}:
+ *   put:
+ *     summary: Update a tutorial by ID
+ *     tags: [Tutorials]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The tutorial ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Tutorial'
+ *     responses:
+ *       200:
+ *         description: The tutorial was updated successfully
+ *       400:
+ *         description: The request body is missing or invalid
+ *       404:
+ *         description: Tutorial not found
+ *       500:
+ *         description: Some server error
+ */
+
+/**
+ * @swagger
+ * /api/tutorials/{id}:
+ *   delete:
+ *     summary: Delete a tutorial by ID
+ *     tags: [Tutorials]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The tutorial ID
+ *     responses:
+ *       200:
+ *         description: The tutorial was deleted successfully
+ *       404:
+ *         description: Tutorial not found
+ *       500:
+ *         description: Some server error
+ */
+
+/**
+ * @swagger
+ * /api/tutorials:
+ *   delete:
+ *     summary: Delete all tutorials
+ *     tags: [Tutorials]
+ *     responses:
+ *       200:
+ *         description: All tutorials were deleted successfully
+ *       500:
+ *         description: Some server error
+ */
+
+/**
+ * @swagger
+ * /api/tutorials/published:
+ *   get:
+ *     summary: Retrieve all published tutorials
+ *     tags: [Tutorials]
+ *     responses:
+ *       200:
+ *         description: A list of published tutorials
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Tutorial'
+ *       500:
+ *         description: Some server error
+ */
+
+
 const db = require("../models");
 const Tutorial = db.tutorials;
 
